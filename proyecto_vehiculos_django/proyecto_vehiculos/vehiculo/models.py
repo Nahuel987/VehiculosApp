@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Vehiculo(models.Model):
     # Opciones de elección para el campo Marca
@@ -38,3 +36,9 @@ class Vehiculo(models.Model):
 
     def __str__(self):
         return f"{self.marca} {self.modelo}"
+
+
+class Meta:
+    permissions = [
+        ("visualizar_catalogo", "Puede visualizar el catálogo de vehículos"),
+    ]

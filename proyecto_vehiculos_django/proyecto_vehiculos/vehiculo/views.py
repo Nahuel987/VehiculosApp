@@ -1,4 +1,5 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
+from .models import Vehiculo
 from .forms import VehiculoForm
 
 
@@ -11,7 +12,13 @@ def agregar_vehiculo(request):
         form = VehiculoForm(request.POST)
         if form.is_valid():
             form.save()
+            # Redirige a la página de inicio u otra página después de guardar
             return redirect('index')
     else:
         form = VehiculoForm()
     return render(request, 'agregar_vehiculo.html', {'form': form})
+
+
+def listar_vehiculos(request):
+    vehiculos = Vehiculo.objects.all()
+    return render(request, 'listar_vehiculos.html', {'vehiculos': vehiculos})

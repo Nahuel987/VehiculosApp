@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Catálogo de Vehículos</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Serial Carrocería</th>
+                <th scope="col">Serial Motor</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha de Creación</th>
+                <th scope="col">Fecha de Modificación</th>
+                <th scope="col">Condición de Precio</th> <!-- Nueva columna -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehiculo in vehiculos %}
+            <tr>
+                <td>{{ vehiculo.marca }}</td>
+                <td>{{ vehiculo.modelo }}</td>
+                <td>{{ vehiculo.serial_carroceria }}</td>
+                <td>{{ vehiculo.serial_motor }}</td>
+                <td>{{ vehiculo.categoria }}</td>
+                <td>{{ vehiculo.precio }}</td>
+                <td>{{ vehiculo.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                <td>{{ vehiculo.fecha_modificacion|date:"d/m/Y H:i" }}</td>
+                
+                <!-- Condición de Precio -->
+                <td>
+                    {% if vehiculo.precio <= 10000 %}
+                        Bajo
+                    {% elif vehiculo.precio <= 30000 %}
+                        Medio
+                    {% else %}
+                        Alto
+                    {% endif %}
+                </td>
+                
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="text-center">No hay vehículos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
